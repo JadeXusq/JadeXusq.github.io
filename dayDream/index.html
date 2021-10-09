@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1,maximum-scale=1, minimum-scale=1">
+	<meta name="full-screen" content="true">
+	<meta name="screen-orientation" content="portrait">
+	<meta name="x5-orientation" content="portrait">
+	<meta name="x5-fullscreen" content="true">
+	<title>白日梦之城</title>
+	<link rel="stylesheet" type="text/css" href="css/weui.min.css">
+	<link rel="stylesheet" type="text/css" href="css/swiper.min.css">
+	<link rel="stylesheet" type="text/css" href="css/index.css?v=201903191150">
+	<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+	<script src="js/jquery-1.9.1.min.js"></script>
+	<script src="js/swiper.min.js"></script>
+	<script src="js/fastclick.js"></script>
+	<!-- <script src="https://res.wx.qq.com/open/libs/weuijs/1.0.0/weui.min.js"></script> -->
+</head>
+<body>
+	<div class="container">
+		<div class="swiper-wrapper">
+			<div class="swiper-slide">
+				<!-- 音乐按钮 -->
+				<div class="music-panel rotate">
+					<div class="music-on" data-type="load" data-src="assets/img/music-on.png"></div>
+					<div class="music-off" data-type="load" data-src="assets/img/music-off.png"></div>
+					<audio src="assets/audio/bg.mp3" preload="auto" autoplay="autoplay" id="music" loop></audio>
+					<audio src="assets/audio/question-1.mp3" preload="auto" autoplay="autoplay" id="music-question"></audio>
+				</div>
+				<!-- 36krlogo -->
+				<div class="logo-panel" data-type="load" data-src="assets/img/logo.png"></div>
+				<!-- 加载界面 -->
+				<div class="panel loading_panel">
+					<img src="assets/img/bottom-bg.png" class="bottom-bg"/>
+					<img src="assets/img/star-bg.png" class="star-bg"/>
+					<img src="assets/img/ball-01.png" class="ball-01"/>
+					<img src="assets/img/ball-02.png" class="ball-02"/>
+					<img src="assets/img/ball-03.png" class="ball-03"/>
+					<img src="assets/img/ball-04.png" class="ball-04"/>
+					<div class="loading-center">
+						<div class="loading-logo">
+							<img src="assets/img/load-top.png" class="loading-top"/>
+							<img src="assets/img/star.png" class="star loading-star"/>
+						</div>
+						<div class="progress-content">
+							<div class="progress-outer">
+								<div class="progress-inner"></div>
+							</div>
+							<p><span id="progress">0</span>%</p>
+						</div>
+						<div class="progress-text">即将进入...</div>
+						<img src="assets/img/start-btn.png" class="start-btn"/>
+					</div>
+				</div>
+				<!-- 视频界面 -->
+				<div class="video-panel panel">
+					<div class="video">
+						<video id="video" src="assets/video/index.mp4" x5-video-player-type="h5" x-webkit-airplay="allow" x5-video-player-fullscreen="true" x5-video-orientation="portraint" x5-playsinline="" playsinline="" webkit-playsinline="true" playsinline="true">
+						</video>
+					</div>
+				</div>
+				<!-- 主页面 -->
+				<div class="home-panel panel">
+					<img src="assets/img/star-bg.png" class="star-bg home-star-bg"/>
+					<img src="assets/img/ball-01.png" class="ball-01"/>
+					<img src="assets/img/ball-02.png" class="ball-02 home-ball-02"/>
+					<img src="assets/img/ball-03.png" class="ball-03 home-ball-03"/>
+					<img src="assets/img/ball-04.png" class="ball-04"/>
+					<div class="home-logo">
+							<img src="assets/img/load-top.png" class="home-top"/>
+							<img src="assets/img/star.png" class="star home-star"/>
+					</div>
+					<div class="sub-title" data-type="load" data-src="assets/img/sub-title.png"></div>
+					<div class="door-panel">
+						<div class="door" data-type="load" data-src="assets/img/door.png"></div>
+						<div class="light light1" data-type="load" data-src="assets/img/light1.png"></div>
+						<div class="light light2" data-type="load" data-src="assets/img/light2.png"></div>
+					</div>
+					<div class="home-start">
+						<div class="home-start-border" data-type="load" data-src="assets/img/home-start-border.png"></div>
+						<div class="home-start-text" data-type="load" data-src="assets/img/home-start-text2.png"></div>
+						<div class="home-start-text shineFast" data-type="load" data-src="assets/img/home-start-text1.png"></div>
+					</div>
+				</div>
+				<!-- 性别选择 -->
+				<div class="sex-panel panel">
+					<img src="assets/img/star-bg.png" class="star-bg"/>
+					<img src="assets/img/ball-01.png" class="ball-01"/>
+					<img src="assets/img/ball-02.png" class="ball-02"/>
+					<img src="assets/img/ball-03.png" class="ball-03"/>
+					<img src="assets/img/ball-04.png" class="ball-04"/>
+					<img src="assets/img/bottom-bg.png" class="bottom-bg"/>
+					<div class="sex-text">请选择你的性别</div>
+					<div class="sex-input-panel">
+						<div class="input-border" data-type="load" data-src="assets/img/input-border.png"></div>
+						<input id="username" type="text" maxlength="6" placeholder="请输入你的名字" /> 
+					</div>
+					<div class="sex-bottom-panel">
+						<div class="sex-bottom" data-type="load" data-src="assets/img/sex-bottom.png"></div>
+						<div class="through-all">
+							<div class="all-light" data-type="load" data-src="assets/img/all-light.png"></div>
+							<div class="through-road" data-type="load" data-src="assets/img/through-road.png"></div>
+						</div>
+						<div class="male sex sex-move" data-value="male" data-type="load" data-src="assets/img/male.png"></div>
+						<div class="female sex sex-move" data-value="female" data-type="load" data-src="assets/img/female.png"></div>
+						<div class="male-select sex" data-value="male" data-type="load" data-src="assets/img/male-unselect.png"></div>
+						<div class="female-select sex" data-value="female" data-type="load" data-src="assets/img/female-unselect.png"></div>
+						<div class="through-light">
+							<div class="light-left" data-type="load" data-src="assets/img/light-left.png"></div>
+							<div class="light-right" data-type="load" data-src="assets/img/light-right.png"></div>
+						</div>
+					</div>
+					<div class="select-confirm" data-type="load" data-src="assets/img/select-confirm.png"></div>
+					<!-- 穿梭框 -->
+					<div class="through-content">
+						<div class="tip-text" data-type="load" data-src="assets/img/tip-text.png"></div>
+						<div class="through-text" data-type="load" data-src="assets/img/through-text.png"></div>
+						<div class="brand-big-content">
+							<div class="brand-big" data-type="load" data-src="assets/img/brand-big.png"></div>
+							<div class="narrow-big" data-type="load" data-src="assets/img/narrow-big.png"></div>
+						</div>
+						<div class="brand-center-content">
+							<div class="brand-center" data-type="load" data-src="assets/img/brand-center.png"></div>
+							<div class="narrow-big" data-type="load" data-src="assets/img/narrow-big.png"></div>
+						</div>
+						<div class="brand-small" data-type="load" data-src="assets/img/brand-small.png"></div>
+						<div class="white-content" style="display:none;"></div>
+					</div>
+				</div>
+				<!-- 梦境 -->
+				<div class="dream-panel panel">
+					<div class="question-panel panel">
+						<div class="quesiton-inner">
+							<div class="border-outer question-title">
+								<div class="quesiton-border"><div style="text-align: left;padding-left:0;"></div></div>
+								<div class="light-border" data-type="load" data-src="assets/img/light-border.png"></div>
+							</div>
+							<div class="border-outer answer-1 answer" data-value="a">
+								<div class="quesiton-border">
+									<div></div>
+									<p class="control-content">
+										<span class="control"  data-type="load" data-src="assets/img/play.png">
+											<span class="slice">
+												<span class="bar pre50"></span>
+												<span class="fill"></span>
+											</span>
+										</span>
+									</p>
+								</div>
+								<div class="light-border" data-type="load" data-src="assets/img/light-border.png"></div>
+							</div>
+							<div class="border-outer answer-2 answer" data-value="b">
+								<div class="quesiton-border">
+									<div></div>
+									<p class="control-content">
+										<span class="control"  data-type="load" data-src="assets/img/play.png">
+											<span class="slice">
+												<span class="bar pre50"></span>
+												<span class="fill"></span>
+											</span>
+										</span>
+									</p>
+								</div>
+								<div class="light-border" data-type="load" data-src="assets/img/light-border.png"></div>
+							</div>
+							<div class="border-outer answer-3 answer" data-value="c">
+								<div class="quesiton-border">
+										<div></div>
+									<p class="control-content">
+										<span class="control"  data-type="load" data-src="assets/img/play.png">
+											<span class="slice">
+												<span class="bar pre50"></span>
+												<span class="fill"></span>
+											</span>
+										</span>
+									</p>
+								</div>
+								<div class="light-border" data-type="load" data-src="assets/img/light-border.png"></div>
+							</div>
+						</div>
+						<div class="confirm" data-type="load" data-src="assets/img/confirm.png"></div>
+					</div>
+					<div class="bg-content">
+						<div class="bg-01" data-type="load" data-src="assets/img/bg-01.jpg"></div>
+						<div class="bg-02" data-type="load" data-src="assets/img/bg-02.jpg"></div>
+						<div class="bg-03" data-type="load" data-src="assets/img/bg-03.jpg"></div>
+						<div class="bg-04" data-type="load" data-src="assets/img/bg-04.jpg"></div>
+						<!-- 渴望商城 -->
+						<div class="bg-content-01">
+							<div class="desk" data-type="load" data-src="assets/img/part04-01-01.png"></div>
+							<div class="desk-star lightWeek" data-type="load" data-src="assets/img/part04-04-01.png"></div>
+							<div class="photo" data-type="load" data-src="assets/img/part04-02-01.png"></div>
+							<div class="photo-light light" data-type="load" data-src="assets/img/part04-light.png"></div>
+							<div class="tool" data-type="load" data-src="assets/img/part04-03-01.png"></div>
+							<div class="male-sleep sleep" data-type="load" data-src="assets/img/male-sleep.png"></div>
+							<div class="female-sleep sleep" data-type="load" data-src="assets/img/female-sleep.png"></div>
+							<div class="gift moveUpLittle"></div>
+						</div>
+						<!-- 相伴工厂 -->
+						<div class="bg-content-02">
+							<div class="factory-content moveUpLittle">
+								<div class="factory" data-type="load" data-src="assets/img/factory-01.png"></div>
+								<div class="factory-origin" data-type="load" data-src="assets/img/factory-02.png"></div>
+							</div>
+							<div class="factory-man" data-type="load" data-src="assets/img/part03-01-00.gif"></div>
+							<div class="factory-family" data-type="load" data-src="assets/img/part03-02-01.gif"></div>
+						</div>
+						<!-- 甜蜜商城 -->
+						<div class="bg-content-03">
+							<div class="sweet-content">
+								<div class="sweet-light lightOpacity" data-type="load" data-src="assets/img/sweet-light.png"></div>
+								<div class="sweet" data-type="load" data-src="assets/img/sweet.png"></div>
+							</div>
+							<div class="music-box" data-type="load" data-src="assets/img/music-box.gif"></div>
+							<!-- <div class="fog-1 moveRightLittle" data-type="load" data-src="assets/img/fog-1.png"></div> -->
+							<div class="fog-2 moveRightLittle" data-type="load" data-src="assets/img/fog-2.png"></div>
+							<div class="fog-3 moveLeftLittle" data-type="load" data-src="assets/img/fog-3.png"></div>
+						</div>
+						<!-- 自在大街 -->
+						<div class="bg-content-04">
+							<div class="street-light-right lightWeek" data-type="load" data-src="assets/img/part01-light-01.png"></div>
+							<div class="street-light-left light" data-type="load" data-src="assets/img/part01-light-02.png"></div>
+							<div class="bunny welcome-people" data-value="1" data-type="load" data-src="assets/img/part01-01-01.gif"></div>
+							<div class="grandma welcome-people" data-value="2" data-type="load" data-src="assets/img/part01-02-01.gif"></div>
+							<div class="girl welcome-people" data-value="3" data-type="load" data-src="assets/img/part01-03-01.gif"></div>
+							<div class="talk-border talk-border1" data-type="load" data-src="assets/img/talk-border.png"></div>
+							<div class="talk-border talk-border2" data-type="load" data-src="assets/img/talk-border.png"></div>
+							<div class="talk-border talk-border3" data-type="load" data-src="assets/img/talk-border3.png"></div>
+						</div>
+						<div class="male-walk" data-type="load" data-src="assets/img/male-walk.gif"></div>
+						<div class="female-walk" data-type="load" data-src="assets/img/female-walk.gif"></div>
+					</div>
+					<div class="bg-par">
+						<div class="bg-content-05">
+							<div class="bg-05" data-type="load" data-src="assets/img/bg-05.jpg"></div>
+							<div class="bar-man" data-type="load" data-src="assets/img/part05-01-01.png"></div>
+							<div class="bar-light1 light" data-type="load" data-src="assets/img/bar-light1.png"></div>
+							<div class="bar-light2 light" data-type="load" data-src="assets/img/bar-light2.png"></div>
+						</div>
+						<!-- <div class="bar-light" data-type="load" data-src="assets/img/bar-light.png"></div> -->
+						<div class="male-walk" data-type="load" data-src="assets/img/male-walk.gif"></div>
+						<div class="female-walk" data-type="load" data-src="assets/img/female-walk.gif"></div>
+					</div>
+				</div>
+				<!-- logo墙 -->
+			<!-- 	<div class="logo-wall panel">
+					<img src="assets/img/bottom-bg.png" class="bottom-bg"/>
+					<img src="assets/img/star-bg.png" class="star-bg"/>
+					<img src="assets/img/ball-01.png" class="ball-01"/>
+					<img src="assets/img/ball-02.png" class="ball-02"/>
+					<img src="assets/img/ball-03.png" class="ball-03"/>
+					<img src="assets/img/ball-04.png" class="ball-04"/>
+					<div class="wall-content">
+						<div class="wall-bg">
+							<div class="wall-bg-img" data-type="load" data-src="assets/img/logo-border.png"></div>
+							<div class="thanks" data-type="load" data-src="assets/img/thanks.png"></div>
+							<div class="logo-group">
+								<div class="logo-group-child">
+									<div class="logo-img" data-type="load" data-src="assets/img/logo/01.png"></div>
+									<div class="logo-img" data-type="load" data-src="assets/img/logo/01.png"></div>
+									<div class="logo-img" data-type="load" data-src="assets/img/logo/01.png"></div>
+									<div class="logo-img" data-type="load" data-src="assets/img/logo/01.png"></div>
+								</div>
+								<div class="logo-group-child">
+									<div class="logo-img" data-type="load" data-src="assets/img/logo/01.png"></div>
+									<div class="logo-img" data-type="load" data-src="assets/img/logo/01.png"></div>
+									<div class="logo-img" data-type="load" data-src="assets/img/logo/01.png"></div>
+									<div class="logo-img" data-type="load" data-src="assets/img/logo/01.png"></div>
+								</div>
+								<div class="logo-group-child">
+									<div class="logo-img" data-type="load" data-src="assets/img/logo/01.png"></div>
+									<div class="logo-img" data-type="load" data-src="assets/img/logo/01.png"></div>
+									<div class="logo-img" data-type="load" data-src="assets/img/logo/01.png"></div>
+									<div class="logo-img" data-type="load" data-src="assets/img/logo/01.png"></div>
+								</div>
+								<div class="logo-group-child">
+									<div class="logo-img" data-type="load" data-src="assets/img/logo/01.png"></div>
+									<div class="logo-img" data-type="load" data-src="assets/img/logo/01.png"></div>
+									<div class="logo-img" data-type="load" data-src="assets/img/logo/01.png"></div>
+									<div class="logo-img" data-type="load" data-src="assets/img/logo/01.png"></div>
+								</div>
+								<div class="logo-group-child">
+									<div class="logo-img" data-type="load" data-src="assets/img/logo/01.png"></div>
+									<div class="logo-img" data-type="load" data-src="assets/img/logo/01.png"></div>
+									<div class="logo-img" data-type="load" data-src="assets/img/logo/01.png"></div>
+									<div class="logo-img" data-type="load" data-src="assets/img/logo/01.png"></div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<div class="create-text">圆梦指数结果正在生成中<span>.</span></div>
+				</div> -->
+				<!-- 结果页 -->
+				<div class="result-panel panel">
+					<img src="assets/img/bottom-bg.png" class="bottom-bg"/>
+					<img src="assets/img/star-bg.png" class="star-bg"/>
+					<img src="assets/img/ball-01.png" class="ball-01"/>
+					<img src="assets/img/ball-02.png" class="ball-02"/>
+					<img src="assets/img/ball-03.png" class="ball-03"/>
+					<img src="assets/img/ball-04.png" class="ball-04"/>
+					<div class="result-content">
+						<div class="wall-bg">
+							<div class="wall-bg-img" data-type="load" data-src="assets/img/logo-border.png"></div>
+							<!-- <div class="save-tips">-长按可保存图片-</div> -->
+							<div class="line" data-type="load" data-src="assets/img/line.png"></div>
+							<div class="score-name-content">
+								<div class="score-name">伊丽莎白二世</div>
+								<div class="dream-text" data-type="load" data-src="assets/img/dream-text.png"></div>
+								<div class="score" id="score"></div>
+							</div>
+							<div class="score-title">白日梦有千万种，你只会做一种，不太可能实现的那种，还是脚踏实地的好。</div>
+							<div class="point-content">
+								<img src="" class="type-1"/>
+								<img src="" class="type-2"/>
+								<img src="" class="type-3"/>
+								<img src="" class="type-4"/>
+								<img src="" class="type-5"/>
+							</div>
+							<div class="result-score courage-content"> 
+								<div class="score-top">勇气值:<span></span></div>
+								<div class="score-bottom"></div>
+							</div>
+							<div class="result-score luky-content">
+								<div class="score-top">运气值:<span></span></div>
+								<div class="score-bottom"></div>
+							</div>
+							<div class="result-score sleep-content">
+								<div class="score-top">睡眠时间:<span></span></div>
+								<div class="score-bottom"></div>
+							</div>
+							<div class="result-score desire-content">
+								<div class="score-top">欲望值:<span></span></div>
+								<div class="score-bottom"></div>
+							</div>
+							<div class="result-score strive-content">
+								<div class="score-top">努力值:<span></span></div>
+								<div class="score-bottom"></div>
+							</div>
+						</div>
+					</div>
+					<div class="home-logo">
+							<img src="assets/img/load-top.png" class="home-top"/>
+							<img src="assets/img/star.png" class="star home-star"/>
+					</div>
+					<div class="test-text">测测你的圆梦指数</div>
+					<div class="code-content">
+						<div class="code-inner">
+							<img src="assets/img/code.png" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container-copy" style="display:none;">
+		<div class="swiper-wrapper">
+			<div class="swiper-slide">
+				<!-- 音乐按钮 -->
+				<div class="music-panel rotate">
+					<div class="music-on" data-type="load" data-src="assets/img/music-on.png"></div>
+					<div class="music-off" data-type="load" data-src="assets/img/music-off.png"></div>
+				</div>
+				<div class="logo-panel" data-type="load" data-src="assets/img/logo.png" style="display:block;"></div>
+				<div class="result-panel panel">
+					<img src="assets/img/bottom-bg.png" class="bottom-bg"/>
+					<img src="assets/img/star-bg.png" class="star-bg"/>
+					<img src="assets/img/ball-01.png" class="ball-01"/>
+					<img src="assets/img/ball-02.png" class="ball-02"/>
+					<img src="assets/img/ball-03.png" class="ball-03"/>
+					<img src="assets/img/ball-04.png" class="ball-04"/>
+					<div class="result-content">
+						<div class="wall-bg">
+							<div class="wall-bg-img" data-type="load" data-src="assets/img/logo-border.png"></div>
+							<div class="save-tips">-长按可保存图片-</div>
+							<div class="line" data-type="load" data-src="assets/img/line.png"></div>
+							<div class="score-name-content">
+								<div class="score-name">伊丽莎白二世</div>
+								<div class="dream-text" data-type="load" data-src="assets/img/dream-text.png"></div>
+								<div class="score"></div>
+							</div>
+							<div class="score-title">白日梦有千万种，你只会做一种，不太可能实现的那种，还是脚踏实地的好。</div>
+							<div class="point-content">
+								<img src="" class="type-1"/>
+								<img src="" class="type-2"/>
+								<img src="" class="type-3"/>
+								<img src="" class="type-4"/>
+								<img src="" class="type-5"/>
+							</div>
+							<div class="result-score courage-content"> 
+								<div class="score-top">勇气值:<span></span></div>
+								<div class="score-bottom"></div>
+							</div>
+							<div class="result-score luky-content">
+								<div class="score-top">运气值:<span></span></div>
+								<div class="score-bottom"></div>
+							</div>
+							<div class="result-score sleep-content">
+								<div class="score-top">睡眠时间:<span></span></div>
+								<div class="score-bottom"></div>
+							</div>
+							<div class="result-score desire-content">
+								<div class="score-top">欲望值:<span></span></div>
+								<div class="score-bottom"></div>
+							</div>
+							<div class="result-score strive-content">
+								<div class="score-top">努力值:<span></span></div>
+								<div class="score-bottom"></div>
+							</div>
+						</div>
+						<div class="enter-text" data-type="load" data-src="assets/img/enter-text.png"></div>
+						<img src="" id="canvas-img"/>
+					</div>
+					<div class="lucy-btn result-btn" data-type="load" data-src="assets/img/lucy-btn.png"></div>
+					<div class="order-btn result-btn" data-type="load" data-src="assets/img/order-btn.png"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 横屏提示 -->
+	<div id="orientLayer" class="mod-orient-layer">
+		<div class="mod-orient-layer__content">
+			<i class="icon mod-orient-layer__icon-orient"></i>
+			<div class="mod-orient-layer__desc">为了更好的体验，请使用竖屏锁屏浏览</div>
+		</div>
+	</div>
+
+	<!-- 微信弹窗 -->
+    <div class="js_dialog" id="iosDialog">
+        <div class="weui-mask"></div>
+        <div class="weui-dialog">
+            <div class="weui-dialog__bd">提交成功</div>
+            <div class="weui-dialog__ft">
+                <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary" id="know1">知道了</a>
+            </div>
+        </div>
+    </div>
+	<script src="js/html2canvas.min.js"></script>
+	<script src="js/resLoader.js"></script>
+	<script src="js/common.js?v=201903191150"></script>
+	<script src="js/load.js?v=201903191150""></script>
+    <script src="js/index.js?v=201903191150"></script>
+	<!--   <script type="text/javascript" src="js/vconsole.min.js"></script>
+	  <script>
+	    var vConsole = new VConsole();
+	  </script> -->
+    <script type="text/javascript">
+    	//音频控制
+		function autoPlayAudio() { 
+		    wx.config({
+			    // 配置信息, 即使不正确也能使用 wx.ready
+			    debug: false,
+			    appId:"",
+			    timestamp:'',
+			    nonceStr:"",
+			    signature:"",
+			    jsApiList: [
+			      // 所有要调用的 API 都要加到这个列表中
+			    ]
+		    });
+		    wx.ready(()=>{
+		    	for(var i=0;i<arguments.length;i++){
+					 document.getElementById(arguments[i]).play();
+					 document.getElementById(arguments[i]).pause();
+		    	}
+				$("#video")[0].play();
+				$("#video")[0].pause();
+		    });
+		}
+		autoPlayAudio('music','music-question');//微信分享，音频初始化
+    </script>
+</body>
