@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 引入flare这个库 -->
+    <script src="./fabric.min.js"></script>
+</head>
+<body>
+    <!-- 用来选主图 -->
+    <input type="file" id="mainInput" />
+    <!-- 用来选组成图片 多选 -->
+    <input type="file" id="composeInput" multiple />
+    <!-- 生成效果 -->
+    <button id="finishBtn">生成组合图</button>
+    <!-- 导出图片 -->
+    <button id="exportBtn">导出图片</button>
+    <!-- 一块800 * 800 的canvas画布 -->
+    <canvas id="canvas" width="800" height="800"></div>
+</body>
+<script src="./index.js"></script>
+</html>
