@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="200" height="120" viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 主背景 - 透明 -->
+  
+  <!-- 中间圆形印章背景 -->
+  <circle cx="100" cy="60" r="50" fill="#0047AB" />
+  
+  <!-- 外圆描边 - 模拟印章效果 -->
+  <circle cx="100" cy="60" r="48" stroke="white" stroke-width="1.5" stroke-opacity="0.8" fill="none" />
+  <circle cx="100" cy="60" r="45" stroke="white" stroke-width="1" stroke-opacity="0.6" fill="none" />
+  
+  <!-- 古代医药图案 - 简化版的药碗和捣药杵 -->
+  <path d="M85 43 Q92 38 100 43 Q108 38 115 43 Q118 48 115 53 L85 53 Q82 48 85 43Z" 
+        fill="none" stroke="white" stroke-width="1.5" />
+  <rect x="97" y="28" width="6" height="20" rx="2" fill="white" />
+  
+  <!-- 中央"曦太医"文字 -->
+  <text x="100" y="75" font-family="STKaiti, Kaiti SC, serif" font-size="24" font-weight="bold" fill="white" text-anchor="middle">曦太医</text>
+  
+  <!-- 底部英文 -->
+  <text x="100" y="92" font-family="Arial, sans-serif" font-size="10" fill="white" text-anchor="middle" letter-spacing="1">XI TAI YI</text>
+  
+  <!-- 上下的装饰线条 - 模拟针灸经络 -->
+  <path d="M45 60 Q65 50 85 60" stroke="white" stroke-width="1" stroke-dasharray="2,2" fill="none" />
+  <path d="M115 60 Q135 70 155 60" stroke="white" stroke-width="1" stroke-dasharray="2,2" fill="none" />
+  
+  <!-- 四周装饰点 - 模拟穴位 -->
+  <circle cx="45" cy="60" r="2" fill="white" />
+  <circle cx="155" cy="60" r="2" fill="white" />
+  <circle cx="85" cy="60" r="1.5" fill="white" />
+  <circle cx="115" cy="60" r="1.5" fill="white" />
+  
+  <!-- 印章边框装饰 - 类似古代印章 -->
+  <rect x="60" y="20" width="80" height="80" rx="3" stroke="white" stroke-width="2" stroke-opacity="0.3" fill="none" />
+</svg> 

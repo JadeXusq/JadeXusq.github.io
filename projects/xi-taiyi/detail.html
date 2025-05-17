@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>详情介绍 - 曦太医</title>
+    <script type="text/javascript">
+      document.addEventListener("plusready", function () {
+        //console.log("所有plus api都应该在此事件发生后调用，否则会出现plus is undefined。")
+      });
+
+      // 返回首页
+      function goBack() {
+        window.location.href = "welcome.html";
+      }
+    </script>
+    <style type="text/css">
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC",
+          "Hiragino Sans GB", "Heiti SC", sans-serif;
+        background: linear-gradient(135deg, #e0f7ff 0%, #f5fbff 100%);
+        color: #333;
+        padding: 20px;
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: #ffffff;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(51, 94, 187, 0.12);
+      }
+
+      .main-header {
+        background: linear-gradient(90deg, #1a56db 0%, #3d75dd 100%);
+        padding: 40px 20px;
+        color: white;
+        text-align: center;
+        position: relative;
+      }
+
+      .main-header h1 {
+        font-size: 32px;
+        margin-bottom: 15px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+      }
+
+      .back-btn {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        display: inline-flex;
+        align-items: center;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        border: none;
+        background: rgba(255, 255, 255, 0.2);
+        padding: 8px 16px;
+        border-radius: 30px;
+        transition: all 0.3s ease;
+      }
+
+      .back-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: translateX(-5px);
+      }
+
+      .back-btn svg {
+        margin-right: 6px;
+      }
+
+      .content-wrapper {
+        padding: 40px;
+      }
+
+      .content {
+        margin-bottom: 30px;
+        line-height: 1.7;
+      }
+
+      .content p {
+        margin-bottom: 20px;
+        font-size: 16px;
+        line-height: 1.8;
+        color: #4a5568;
+      }
+
+      .content h2 {
+        color: #1a56db;
+        font-size: 24px;
+        margin: 35px 0 20px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid rgba(66, 153, 225, 0.2);
+        position: relative;
+      }
+
+      .content h2:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -2px;
+        width: 80px;
+        height: 2px;
+        background: linear-gradient(90deg, #1a56db, #3182ce);
+      }
+
+      .image-container {
+        margin: 30px 0;
+        text-align: center;
+        overflow: hidden;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(51, 94, 187, 0.15);
+      }
+
+      .image-container img {
+        max-width: 100%;
+        transition: transform 0.5s ease;
+        display: block;
+      }
+
+      .image-container:hover img {
+        transform: scale(1.03);
+      }
+
+      .features {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 30px 0;
+        gap: 25px;
+      }
+
+      .feature-item {
+        width: calc(50% - 25px);
+        padding: 25px;
+        background: linear-gradient(135deg, #f5f9ff 0%, #edf5ff 100%);
+        border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(51, 94, 187, 0.06);
+        transition: all 0.3s ease;
+        border: 1px solid rgba(66, 153, 225, 0.1);
+      }
+
+      .feature-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 25px rgba(51, 94, 187, 0.1);
+        border-color: rgba(66, 153, 225, 0.3);
+      }
+
+      .feature-item h3 {
+        color: #1a56db;
+        margin-bottom: 15px;
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+      }
+
+      .feature-item h3:before {
+        content: "✓";
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        background: linear-gradient(135deg, #1a56db 0%, #3182ce 100%);
+        color: white;
+        border-radius: 50%;
+        margin-right: 12px;
+        font-size: 16px;
+        font-weight: bold;
+        box-shadow: 0 3px 6px rgba(66, 153, 225, 0.3);
+      }
+
+      .feature-item p {
+        font-size: 15px;
+        line-height: 1.6;
+        color: #4a5568;
+        margin-bottom: 0;
+      }
+
+      .advantage-list {
+        background: linear-gradient(135deg, #f5f9ff 0%, #edf5ff 100%);
+        padding: 25px 30px;
+        border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(51, 94, 187, 0.06);
+        margin: 30px 0;
+        border-left: 4px solid #1a56db;
+      }
+
+      .advantage-item {
+        margin-bottom: 15px;
+        color: #4a5568;
+        display: flex;
+        align-items: flex-start;
+      }
+
+      .advantage-item strong {
+        color: #2c5282;
+      }
+
+      .advantage-item:before {
+        content: "•";
+        color: #1a56db;
+        font-size: 20px;
+        line-height: 1;
+        margin-right: 10px;
+      }
+
+      .advantage-item:last-child {
+        margin-bottom: 0;
+      }
+
+      .contact-info {
+        background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        padding: 25px;
+        border-radius: 12px;
+        margin: 30px 0;
+        border: 1px solid rgba(66, 153, 225, 0.2);
+      }
+
+      .contact-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+        color: #4a5568;
+      }
+
+      .contact-item:last-child {
+        margin-bottom: 0;
+      }
+
+      .contact-icon {
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(135deg, #1a56db 0%, #3182ce 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        margin-right: 15px;
+        box-shadow: 0 3px 6px rgba(66, 153, 225, 0.3);
+        font-size: 18px;
+      }
+
+      .footer {
+        text-align: center;
+        padding: 30px 20px;
+        color: white;
+        background: linear-gradient(90deg, #2d3748 0%, #4a5568 100%);
+      }
+
+      .footer p {
+        margin-bottom: 10px;
+      }
+
+      .footer-links {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 15px;
+      }
+
+      .footer-links a {
+        color: rgba(255, 255, 255, 0.8);
+        margin: 0 15px;
+        text-decoration: none;
+        font-size: 14px;
+        transition: color 0.3s;
+      }
+
+      .footer-links a:hover {
+        color: white;
+      }
+
+      /* 响应式适配 */
+      @media (max-width: 768px) {
+        .feature-item {
+          width: 100%;
+        }
+
+        .content-wrapper {
+          padding: 25px;
+        }
+
+        .main-header {
+          padding-top: 60px;
+          padding-bottom: 30px;
+        }
+
+        .main-header h1 {
+          font-size: 26px;
+        }
+      }
+
+      /* 平板横屏适配 */
+      @media (min-width: 992px) and (max-width: 1366px) and (orientation: landscape) {
+        .container {
+          max-width: 95%;
+        }
+
+        .content {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 30px;
+        }
+
+        .content-left {
+          width: 60%;
+        }
+
+        .content-right {
+          width: calc(40% - 30px);
+        }
+
+        .feature-item {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="main-header">
+        <button class="back-btn" onclick="goBack()">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M15 8H1M1 8L8 15M1 8L8 1"
+              stroke="white"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          返回
+        </button>
+        <h1>详情介绍</h1>
+      </div>
+
+      <div class="content-wrapper">
+        <div class="content">
+          <div class="content-left">
+            <p>
+              曦太医是一家专注于医疗健康服务的创新型企业，致力于通过先进科技打造全方位健康管理平台。我们拥有一支由资深医疗专家和技术精英组成的团队，结合人工智能、大数据和互联网技术，为用户提供高效、便捷的医疗健康服务。
+            </p>
+
+            <div class="image-container">
+              <img src="img/clinic.jpg" alt="医疗团队形象图" />
+            </div>
+
+            <h2>我们的使命</h2>
+            <p>
+              曦太医的使命是让每个人都能便捷获取高质量的医疗健康服务。我们希望通过技术的力量，打破地域限制，让优质医疗资源惠及更多人群，提高整体医疗服务质量和效率。
+            </p>
+
+            <h2>我们的服务</h2>
+          </div>
+
+          <div class="content-right">
+            <div class="features">
+              <div class="feature-item">
+                <h3>在线问诊</h3>
+                <p>
+                  连接全国知名医院和专科医生，为您提供一对一专业咨询和诊断建议，足不出户即可获得顶级医疗资源。
+                </p>
+              </div>
+
+              <div class="feature-item">
+                <h3>健康档案管理</h3>
+                <p>
+                  自动记录和整理您的检查报告、用药记录、病史等健康数据，建立个人健康档案，方便随时查阅和分享。
+                </p>
+              </div>
+
+              <div class="feature-item">
+                <h3>用药指导</h3>
+                <p>
+                  专业药师提供用药建议，自动检测药物相互作用，设置用药提醒，确保用药安全有效。
+                </p>
+              </div>
+
+              <div class="feature-item">
+                <h3>健康评估</h3>
+                <p>
+                  通过智能算法对您的健康数据进行分析，提供个性化健康评估报告和改善建议。
+                </p>
+              </div>
+
+              <div class="feature-item">
+                <h3>医疗资源导航</h3>
+                <p>
+                  根据您的位置和需求，推荐附近适合的医疗机构和药店，提供路线导航和预约服务。
+                </p>
+              </div>
+
+              <div class="feature-item">
+                <h3>健康知识库</h3>
+                <p>
+                  提供丰富的健康知识和医疗资讯，帮助您了解疾病预防、健康生活方式等信息。
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <h2>我们的优势</h2>
+          <div class="advantage-list">
+            <div class="advantage-item">
+              <span
+                ><strong>专业团队：</strong
+                >拥有多位来自三甲医院的专家顾问，确保服务的专业性和权威性</span
+              >
+            </div>
+            <div class="advantage-item">
+              <span
+                ><strong>技术创新：</strong
+                >运用AI、大数据等先进技术，提高诊断准确率和服务效率</span
+              >
+            </div>
+            <div class="advantage-item">
+              <span
+                ><strong>资源整合：</strong
+                >整合全国优质医疗资源，打造完整医疗服务生态链</span
+              >
+            </div>
+            <div class="advantage-item">
+              <span
+                ><strong>用户至上：</strong
+                >以用户需求为中心，提供个性化、人性化的服务体验</span
+              >
+            </div>
+            <div class="advantage-item">
+              <span
+                ><strong>安全保障：</strong
+                >严格执行医疗数据安全标准，保护用户隐私</span
+              >
+            </div>
+          </div>
+
+          <h2>联系我们</h2>
+          <div class="contact-info">
+            <div class="contact-item">
+              <div class="contact-icon">📞</div>
+              <span>电话：400-123-4567</span>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">✉️</div>
+              <span>邮箱：service@xitaiyi.com</span>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">📍</div>
+              <span>地址：北京市海淀区中关村科技园区</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <div class="footer-links">
+          <a href="#">关于我们</a>
+          <a href="#">服务条款</a>
+          <a href="#">隐私政策</a>
+          <a href="#">联系我们</a>
+        </div>
+        <p>© 2023 曦太医 版权所有</p>
+      </div>
+    </div>
+  </body>
+</html>

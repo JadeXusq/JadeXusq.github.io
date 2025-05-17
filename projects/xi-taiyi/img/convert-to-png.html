@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SVG 转换为 PNG</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 20px;
+        background-color: #f5f5f5;
+      }
+      h1 {
+        color: #0047ab;
+        text-align: center;
+      }
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px;
+        margin: 30px auto;
+        max-width: 1200px;
+      }
+      .image-card {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        text-align: center;
+        width: 300px;
+      }
+      .image-container {
+        margin-bottom: 15px;
+        background-color: #f9f9ff;
+        border-radius: 4px;
+        padding: 10px;
+        height: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .image-container img {
+        max-width: 100%;
+        max-height: 100%;
+      }
+      button {
+        background-color: #0047ab;
+        border: none;
+        border-radius: 4px;
+        color: white;
+        cursor: pointer;
+        font-size: 16px;
+        padding: 8px 16px;
+        transition: background-color 0.3s;
+      }
+      button:hover {
+        background-color: #003380;
+      }
+      .logo-container {
+        background-color: #0047ab;
+      }
+      #pattern-preview {
+        width: 200px;
+        height: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>曦太医 - 图像资源</h1>
+
+    <div class="container">
+      <div class="image-card">
+        <h2>曦太医徽标</h2>
+        <div class="image-container logo-container">
+          <img id="logo-preview" src="logo.svg" alt="曦太医徽标" />
+        </div>
+        <button onclick="convertToPNG('logo-preview', 'logo.png')">
+          下载 PNG
+        </button>
+      </div>
+
+      <div class="image-card">
+        <h2>传统背景图案</h2>
+        <div class="image-container">
+          <img
+            id="pattern-preview"
+            src="traditional-pattern.svg"
+            alt="传统背景图案"
+          />
+        </div>
+        <button
+          onclick="convertToPNG('pattern-preview', 'traditional-pattern.png')"
+        >
+          下载 PNG
+        </button>
+      </div>
+    </div>
+
+    <script>
+      function convertToPNG(sourceId, filename) {
+        const svgElement = document.getElementById(sourceId);
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+
+        // 获取SVG的尺寸
+        const svgWidth = svgElement.width.baseVal
+          ? svgElement.width.baseVal.value
+          : svgElement.naturalWidth;
+        const svgHeight = svgElement.height.baseVal
+          ? svgElement.height.baseVal.value
+          : svgElement.naturalHeight;
+
+        // 设置Canvas尺寸（放大2倍以提高PNG质量）
+        canvas.width = svgWidth * 2;
+        canvas.height = svgHeight * 2;
+
+        // 创建Image对象
+        const img = new Image();
+        img.onload = function () {
+          // 填充白色背景（只为背景图案）
+          if (sourceId === "pattern-preview") {
+            ctx.fillStyle = "#F9F9FF";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+          }
+
+          // 绘制SVG到Canvas
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+          // 转换为PNG并下载
+          const dataURL = canvas.toDataURL("image/png");
+          const a = document.createElement("a");
+          a.href = dataURL;
+          a.download = filename;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        };
+
+        // 加载SVG
+        const serializer = new XMLSerializer();
+        let svgString = serializer.serializeToString(svgElement);
+
+        // 如果是<img>元素加载的SVG
+        if (svgElement.tagName.toLowerCase() === "img") {
+          img.src = svgElement.src;
+        } else {
+          // 如果是直接的SVG元素
+          const svgBlob = new Blob([svgString], { type: "image/svg+xml" });
+          const url = URL.createObjectURL(svgBlob);
+          img.src = url;
+        }
+      }
+
+      // 页面加载完成后执行
+      window.onload = function () {
+        console.log("页面已加载，可以使用转换工具。");
+      };
+    </script>
+  </body>
+</html>

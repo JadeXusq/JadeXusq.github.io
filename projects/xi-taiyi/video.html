@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>视频展示 - 曦太医</title>
+    <script type="text/javascript">
+      document.addEventListener("plusready", function () {
+        //console.log("所有plus api都应该在此事件发生后调用，否则会出现plus is undefined。")
+      });
+
+      // 返回首页
+      function goBack() {
+        window.location.href = "welcome.html";
+      }
+
+      // 播放视频
+      function playVideo(videoUrl, title) {
+        alert("视频功能正在开发中...\n即将播放: " + title);
+        // 在实际项目中，这里可以使用HTML5 video标签或调用原生播放器
+      }
+    </script>
+    <style type="text/css">
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC",
+          "Hiragino Sans GB", "Heiti SC", sans-serif;
+        background: linear-gradient(135deg, #e0f7ff 0%, #f5fbff 100%);
+        color: #333;
+        padding: 20px;
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: #ffffff;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(51, 94, 187, 0.12);
+      }
+
+      .main-header {
+        background: linear-gradient(90deg, #1a56db 0%, #3d75dd 100%);
+        padding: 40px 20px;
+        color: white;
+        text-align: center;
+        position: relative;
+      }
+
+      .main-header h1 {
+        font-size: 32px;
+        margin-bottom: 15px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+      }
+
+      .main-header p {
+        font-size: 18px;
+        opacity: 0.9;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      .back-btn {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        display: inline-flex;
+        align-items: center;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        border: none;
+        background: rgba(255, 255, 255, 0.2);
+        padding: 8px 16px;
+        border-radius: 30px;
+        transition: all 0.3s ease;
+      }
+
+      .back-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: translateX(-5px);
+      }
+
+      .back-btn svg {
+        margin-right: 6px;
+      }
+
+      .content-wrapper {
+        padding: 40px;
+      }
+
+      .video-container {
+        display: flex;
+        flex-wrap: wrap;
+        margin: -15px;
+      }
+
+      .video-card {
+        width: calc(33.33% - 30px);
+        margin: 15px;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 10px 20px rgba(51, 94, 187, 0.08);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        background: #fff;
+        border: 1px solid rgba(226, 232, 240, 0.8);
+      }
+
+      .video-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(51, 94, 187, 0.15);
+        border-color: rgba(66, 153, 225, 0.5);
+      }
+
+      .video-thumbnail {
+        position: relative;
+        height: 200px;
+        background-size: cover;
+        background-position: center;
+      }
+
+      .play-icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 60px;
+        height: 60px;
+        background-color: rgba(26, 86, 219, 0.8);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(26, 86, 219, 0.4);
+      }
+
+      .video-card:hover .play-icon {
+        transform: translate(-50%, -50%) scale(1.1);
+        background-color: rgba(26, 86, 219, 0.9);
+      }
+
+      .play-icon:after {
+        content: "";
+        display: block;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 10px 0 10px 18px;
+        border-color: transparent transparent transparent #fff;
+        margin-left: 5px;
+      }
+
+      .video-duration {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        background: rgba(0, 0, 0, 0.6);
+        color: white;
+        font-size: 12px;
+        padding: 3px 8px;
+        border-radius: 4px;
+      }
+
+      .video-info {
+        padding: 20px;
+        position: relative;
+      }
+
+      .video-info:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 20px;
+        right: 20px;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(66, 153, 225, 0.3),
+          transparent
+        );
+      }
+
+      .video-title {
+        font-size: 18px;
+        color: #1a56db;
+        margin-bottom: 8px;
+        font-weight: 600;
+      }
+
+      .video-desc {
+        font-size: 14px;
+        color: #64748b;
+        line-height: 1.5;
+        margin-bottom: 12px;
+      }
+
+      .video-meta {
+        display: flex;
+        justify-content: space-between;
+        color: #a0aec0;
+        font-size: 12px;
+        border-top: 1px dashed rgba(226, 232, 240, 0.8);
+        padding-top: 10px;
+      }
+
+      .footer {
+        text-align: center;
+        padding: 30px 20px;
+        color: white;
+        background: linear-gradient(90deg, #2d3748 0%, #4a5568 100%);
+      }
+
+      .footer p {
+        margin-bottom: 10px;
+      }
+
+      .footer-links {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 15px;
+      }
+
+      .footer-links a {
+        color: rgba(255, 255, 255, 0.8);
+        margin: 0 15px;
+        text-decoration: none;
+        font-size: 14px;
+        transition: color 0.3s;
+      }
+
+      .footer-links a:hover {
+        color: white;
+      }
+
+      /* 响应式适配 */
+      @media (max-width: 992px) {
+        .video-card {
+          width: calc(50% - 30px);
+        }
+
+        .content-wrapper {
+          padding: 30px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .video-card {
+          width: 100%;
+          margin-bottom: 20px;
+        }
+
+        .content-wrapper {
+          padding: 20px;
+        }
+
+        .main-header {
+          padding-top: 60px;
+          padding-bottom: 30px;
+        }
+
+        .main-header h1 {
+          font-size: 26px;
+        }
+
+        .main-header p {
+          font-size: 16px;
+        }
+      }
+
+      /* 平板横屏适配 */
+      @media (min-width: 992px) and (max-width: 1366px) and (orientation: landscape) {
+        .container {
+          max-width: 95%;
+        }
+
+        .video-container {
+          display: flex;
+          flex-wrap: wrap;
+        }
+
+        .video-card {
+          width: calc(33.33% - 30px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="main-header">
+        <button class="back-btn" onclick="goBack()">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M15 8H1M1 8L8 15M1 8L8 1"
+              stroke="white"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          返回
+        </button>
+        <h1>视频展示</h1>
+        <p>查看我们的最新医疗技术和案例视频讲解</p>
+      </div>
+
+      <div class="content-wrapper">
+        <div class="video-container">
+          <div
+            class="video-card"
+            onclick="playVideo('videos/intro.mp4', '曦太医应用介绍')"
+          >
+            <div
+              class="video-thumbnail"
+              style="background-image: url('img/video-thumb1.jpg')"
+            >
+              <div class="play-icon"></div>
+              <div class="video-duration">3:45</div>
+            </div>
+            <div class="video-info">
+              <h3 class="video-title">曦太医应用介绍</h3>
+              <p class="video-desc">
+                全面了解曦太医应用的功能特点和使用方法，助您轻松管理健康。
+              </p>
+              <div class="video-meta">
+                <span>发布日期: 2023-09-15</span>
+                <span>播放: 2,341次</span>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="video-card"
+            onclick="playVideo('videos/health-tips.mp4', '日常健康小贴士')"
+          >
+            <div
+              class="video-thumbnail"
+              style="background-image: url('img/video-thumb2.jpg')"
+            >
+              <div class="play-icon"></div>
+              <div class="video-duration">5:20</div>
+            </div>
+            <div class="video-info">
+              <h3 class="video-title">日常健康小贴士</h3>
+              <p class="video-desc">
+                专业医生为您分享日常保健知识，简单易行的健康习惯养成指南。
+              </p>
+              <div class="video-meta">
+                <span>发布日期: 2023-10-05</span>
+                <span>播放: 3,842次</span>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="video-card"
+            onclick="playVideo('videos/expert-talk.mp4', '专家访谈：心脑血管疾病预防')"
+          >
+            <div
+              class="video-thumbnail"
+              style="background-image: url('img/video-thumb3.jpg')"
+            >
+              <div class="play-icon"></div>
+              <div class="video-duration">12:15</div>
+            </div>
+            <div class="video-info">
+              <h3 class="video-title">专家访谈：心脑血管疾病预防</h3>
+              <p class="video-desc">
+                著名心血管专家李教授详解心脑血管疾病的预防和早期干预方法。
+              </p>
+              <div class="video-meta">
+                <span>发布日期: 2023-10-22</span>
+                <span>播放: 5,126次</span>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="video-card"
+            onclick="playVideo('videos/med-guide.mp4', '用药安全指南')"
+          >
+            <div
+              class="video-thumbnail"
+              style="background-image: url('img/video-thumb4.jpg')"
+            >
+              <div class="play-icon"></div>
+              <div class="video-duration">8:30</div>
+            </div>
+            <div class="video-info">
+              <h3 class="video-title">用药安全指南</h3>
+              <p class="video-desc">
+                专业药师讲解常见药物使用注意事项，避免用药误区和风险。
+              </p>
+              <div class="video-meta">
+                <span>发布日期: 2023-11-08</span>
+                <span>播放: 1,985次</span>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="video-card"
+            onclick="playVideo('videos/exercise.mp4', '适合中老年人的居家运动')"
+          >
+            <div
+              class="video-thumbnail"
+              style="background-image: url('img/video-thumb5.jpg')"
+            >
+              <div class="play-icon"></div>
+              <div class="video-duration">15:45</div>
+            </div>
+            <div class="video-info">
+              <h3 class="video-title">适合中老年人的居家运动</h3>
+              <p class="video-desc">
+                专业康复师示范适合中老年人的安全居家运动，增强体质预防疾病。
+              </p>
+              <div class="video-meta">
+                <span>发布日期: 2023-11-20</span>
+                <span>播放: 4,567次</span>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="video-card"
+            onclick="playVideo('videos/tech-health.mp4', '科技赋能健康管理')"
+          >
+            <div
+              class="video-thumbnail"
+              style="background-image: url('img/video-thumb6.jpg')"
+            >
+              <div class="play-icon"></div>
+              <div class="video-duration">10:20</div>
+            </div>
+            <div class="video-info">
+              <h3 class="video-title">科技赋能健康管理</h3>
+              <p class="video-desc">
+                探索现代科技如何改变健康管理方式，让健康管理变得更加智能便捷。
+              </p>
+              <div class="video-meta">
+                <span>发布日期: 2023-12-05</span>
+                <span>播放: 2,782次</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <div class="footer-links">
+          <a href="#">关于我们</a>
+          <a href="#">服务条款</a>
+          <a href="#">隐私政策</a>
+          <a href="#">联系我们</a>
+        </div>
+        <p>© 2023 曦太医 版权所有</p>
+      </div>
+    </div>
+  </body>
+</html>

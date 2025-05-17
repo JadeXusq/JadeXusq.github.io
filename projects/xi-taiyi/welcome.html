@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>曦太医</title>
+    <script type="text/javascript">
+      document.addEventListener("plusready", function () {
+        //console.log("所有plus api都应该在此事件发生后调用，否则会出现plus is undefined。")
+      });
+
+      // 页面导航函数
+      function navigateTo(page) {
+        window.location.href = page;
+      }
+
+      // 在页面加载完成后，检查是否有套餐选择
+      window.onload = function () {
+        // 从localStorage获取用户选择的套餐类型
+        var selectedPackage = localStorage.getItem("selectedPackage");
+
+        // 如果没有选择套餐，返回套餐选择页面
+        if (!selectedPackage) {
+          window.location.href = "packages.html";
+          return;
+        }
+
+        // 根据选择的套餐类型显示不同的信息
+        var packageInfo = document.getElementById("selected-package-info");
+        var packageTitle = document.getElementById("selected-package-title");
+
+        if (packageInfo && packageTitle) {
+          switch (selectedPackage) {
+            case "basic":
+              packageTitle.textContent = "入微套餐";
+              packageInfo.innerHTML =
+                "您选择了<strong>入微套餐</strong>，价值398元，包含医生见诊1次、清肠净道1次、南少林理筋1次。";
+              break;
+            case "standard":
+              packageTitle.textContent = "通玄套餐";
+              packageInfo.innerHTML =
+                "您选择了<strong>通玄套餐</strong>，价值998元，包含医生见诊1次、细胞仪轻体排毒3次、南少林理筋3次、砭石疗法3次。";
+              break;
+            case "premium":
+              packageTitle.textContent = "洞天套餐";
+              packageInfo.innerHTML =
+                "您选择了<strong>洞天套餐</strong>，价值2998元，包含医生见诊1次、细胞仪寰药汗法3次、南少林理筋5次、帝王灸2次、清肠净道2次。";
+              break;
+            case "vip":
+              packageTitle.textContent = "造化套餐";
+              packageInfo.innerHTML =
+                "您选择了<strong>造化套餐</strong>，价值9999元，包含中医专家见诊4次、清肠净道4次、南少林理筋4次、肝胆修复护肝针4次、细胞仪寰药汗法4次、帝王青/女王青1瓶、肝胆净化1次、宫廷宴（限6人）。";
+              break;
+            default:
+              packageTitle.textContent = "套餐信息";
+              packageInfo.innerHTML = "请选择合适的套餐";
+          }
+        }
+      };
+
+      // 重新选择套餐函数
+      function changePackage() {
+        window.location.href = "packages.html";
+      }
+    </script>
+    <style type="text/css">
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC",
+          "Hiragino Sans GB", "Heiti SC", sans-serif;
+        background: linear-gradient(135deg, #e0f7ff 0%, #f5fbff 100%);
+        color: #333;
+        padding: 20px;
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: #ffffff;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(51, 94, 187, 0.12);
+      }
+
+      .main-header {
+        background: linear-gradient(90deg, #1a56db 0%, #3d75dd 100%);
+        padding: 40px 20px;
+        color: white;
+        text-align: center;
+      }
+
+      .main-header h1 {
+        font-size: 32px;
+        margin-bottom: 15px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+      }
+
+      .main-header p {
+        font-size: 18px;
+        opacity: 0.9;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 30px;
+        padding-bottom: 15px;
+      }
+
+      .content-wrapper {
+        padding: 40px;
+      }
+
+      .content {
+        margin-bottom: 30px;
+        line-height: 1.7;
+        color: #455166;
+      }
+
+      .content p {
+        margin-bottom: 20px;
+        font-size: 16px;
+      }
+
+      .content ul {
+        margin-left: 20px;
+        margin-bottom: 20px;
+      }
+
+      .content li {
+        margin-bottom: 8px;
+        position: relative;
+        padding-left: 10px;
+      }
+
+      .content li:before {
+        content: "";
+        position: absolute;
+        left: -12px;
+        top: 8px;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background-color: #1a56db;
+      }
+
+      /* 套餐信息卡片样式 */
+      .package-info-card {
+        background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        padding: 20px;
+        border-radius: 12px;
+        margin-bottom: 30px;
+        border-left: 4px solid #1a56db;
+        box-shadow: 0 5px 15px rgba(51, 94, 187, 0.08);
+      }
+
+      .package-info-card h2 {
+        color: #1a56db;
+        margin-bottom: 15px;
+        font-size: 22px;
+        display: flex;
+        align-items: center;
+      }
+
+      .package-info-card p {
+        color: #4a5568;
+        line-height: 1.7;
+      }
+
+      .package-change-btn {
+        display: inline-block;
+        background: linear-gradient(90deg, #1a56db 0%, #3182ce 100%);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 20px;
+        text-decoration: none;
+        font-size: 14px;
+        margin-top: 10px;
+        cursor: pointer;
+        border: none;
+        transition: all 0.3s ease;
+      }
+
+      .package-change-btn:hover {
+        background: linear-gradient(90deg, #164cbd 0%, #2c6cb0 100%);
+        transform: translateY(-2px);
+      }
+
+      /* 子类型导航卡片样式 */
+      .category-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin: 30px 0;
+      }
+
+      .category-card {
+        background-color: #fff;
+        border-radius: 12px;
+        box-shadow: 0 10px 20px rgba(51, 94, 187, 0.08);
+        width: calc(33.33% - 20px);
+        margin-bottom: 30px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        border: 1px solid rgba(226, 232, 240, 0.8);
+      }
+
+      .category-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(51, 94, 187, 0.15);
+        border-color: rgba(66, 153, 225, 0.5);
+      }
+
+      .category-img {
+        height: 180px;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+      }
+
+      .category-img:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 50%;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent);
+      }
+
+      .category-info {
+        padding: 20px;
+        position: relative;
+      }
+
+      .category-info:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 20px;
+        right: 20px;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(66, 153, 225, 0.3),
+          transparent
+        );
+      }
+
+      .category-info h3 {
+        color: #1a56db;
+        margin-bottom: 10px;
+        font-size: 20px;
+        font-weight: 600;
+      }
+
+      .category-info p {
+        color: #64748b;
+        font-size: 15px;
+        line-height: 1.5;
+      }
+
+      .category-icon {
+        position: absolute;
+        top: -28px;
+        right: 20px;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #1a56db 0%, #3182ce 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 24px;
+        box-shadow: 0 4px 10px rgba(66, 153, 225, 0.3);
+      }
+
+      .btn {
+        display: inline-block;
+        background: linear-gradient(90deg, #1a56db 0%, #3182ce 100%);
+        color: white;
+        padding: 12px 24px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(66, 153, 225, 0.3);
+      }
+
+      .btn:hover {
+        background: linear-gradient(90deg, #164cbd 0%, #2c6cb0 100%);
+        box-shadow: 0 6px 14px rgba(66, 153, 225, 0.4);
+        transform: translateY(-2px);
+      }
+
+      .footer {
+        text-align: center;
+        padding: 30px 20px;
+        color: white;
+        background: linear-gradient(90deg, #2d3748 0%, #4a5568 100%);
+      }
+
+      .footer p {
+        margin-bottom: 10px;
+      }
+
+      .footer-links {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 15px;
+      }
+
+      .footer-links a {
+        color: rgba(255, 255, 255, 0.8);
+        margin: 0 15px;
+        text-decoration: none;
+        font-size: 14px;
+        transition: color 0.3s;
+      }
+
+      .footer-links a:hover {
+        color: white;
+      }
+
+      /* 响应式适配 */
+      @media (max-width: 768px) {
+        .content-wrapper {
+          padding: 20px;
+        }
+
+        .category-card {
+          width: 100%;
+          margin-bottom: 30px;
+        }
+
+        .main-header {
+          padding: 30px 15px;
+        }
+
+        .main-header h1 {
+          font-size: 26px;
+        }
+
+        .main-header p {
+          font-size: 16px;
+        }
+      }
+
+      /* 平板横屏适配 - 华为平板通常分辨率较高 */
+      @media (min-width: 992px) and (max-width: 1366px) and (orientation: landscape) {
+        .container {
+          max-width: 95%;
+        }
+
+        .content-wrapper {
+          display: flex;
+          flex-wrap: wrap;
+        }
+
+        .content {
+          width: 45%;
+          padding-right: 20px;
+        }
+
+        .category-container {
+          width: 55%;
+          padding-left: 20px;
+        }
+
+        .category-card {
+          width: calc(50% - 15px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="main-header">
+        <h1>曦太医 - 传承千年智慧，创新现代健康</h1>
+        <p>古法结合现代科技，为您提供全方位的健康管理服务</p>
+      </div>
+
+      <div class="content-wrapper">
+        <!-- 套餐信息卡片 -->
+        <div class="package-info-card">
+          <h2 id="selected-package-title">套餐信息</h2>
+          <p id="selected-package-info">请选择合适的套餐</p>
+          <button class="package-change-btn" onclick="changePackage()">
+            更换套餐
+          </button>
+        </div>
+
+        <div class="content">
+          <h2>我们的服务</h2>
+          <p>
+            曦太医结合传统中医精华与现代医学科技，为您提供全方位的健康管理服务。我们的专业团队致力于通过个性化的治疗方案，帮助您恢复健康，提升生活质量。
+          </p>
+          <ul>
+            <li>
+              中医诊疗：采用传统中医诊断方法，结合现代医学检测手段，全面了解您的健康状况，制定个性化的治疗方案。
+            </li>
+            <li>
+              康复理疗：专业的康复理疗团队，为您提供针灸、推拿、拔罐等传统治疗方式，辅助现代康复技术，加速身体恢复。
+            </li>
+            <li>
+              营养调理：根据体质特点和健康需求，为您量身定制饮食调理方案，通过食疗达到调理身体、预防疾病的目的。
+            </li>
+          </ul>
+        </div>
+
+        <div class="content">
+          <h2>了解更多</h2>
+          <p>
+            请点击下方卡片，了解我们的详细介绍、案例展示和视频讲解。如有任何疑问，请随时与我们联系。
+          </p>
+        </div>
+
+        <!-- 三个子类型卡片 -->
+        <div class="category-container">
+          <div class="category-card" onclick="navigateTo('detail.html')">
+            <div
+              class="category-img"
+              style="background-image: url('img/detail.jpg')"
+            ></div>
+            <div class="category-info">
+              <div class="category-icon">📋</div>
+              <h3>详情介绍</h3>
+              <p>了解曦太医的详细服务内容、机构背景及专业优势</p>
+            </div>
+          </div>
+
+          <div class="category-card" onclick="navigateTo('video.html')">
+            <div
+              class="category-img"
+              style="background-image: url('img/video.jpg')"
+            ></div>
+            <div class="category-info">
+              <div class="category-icon">🎬</div>
+              <h3>视频展示</h3>
+              <p>观看专业医疗解说视频，了解最新医疗科技与健康知识</p>
+            </div>
+          </div>
+
+          <div class="category-card" onclick="navigateTo('cases.html')">
+            <div
+              class="category-img"
+              style="background-image: url('img/cases.jpg')"
+            ></div>
+            <div class="category-info">
+              <div class="category-icon">📊</div>
+              <h3>案例展示</h3>
+              <p>查看真实医疗案例与用户反馈，见证专业医疗服务效果</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <div class="footer-links">
+          <a href="#">关于我们</a>
+          <a href="#">服务条款</a>
+          <a href="#">隐私政策</a>
+          <a href="#">联系我们</a>
+        </div>
+        <p>© 2023 曦太医 版权所有</p>
+      </div>
+    </div>
+  </body>
+</html>

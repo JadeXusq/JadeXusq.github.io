@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>案例展示 - 曦太医</title>
+    <script type="text/javascript">
+      document.addEventListener("plusready", function () {
+        //console.log("所有plus api都应该在此事件发生后调用，否则会出现plus is undefined。")
+      });
+
+      // 返回首页
+      function goBack() {
+        window.location.href = "index.html";
+      }
+
+      // 查看案例详情
+      function viewCaseDetail(caseId) {
+        alert("案例详情功能正在开发中...");
+        // 在实际项目中，这里可以跳转到案例详情页或显示弹窗详情
+      }
+
+      // 筛选案例
+      function filterCases() {
+        alert("筛选功能正在开发中...");
+        // 实际项目中，这里可以根据用户选择的条件筛选案例
+      }
+    </script>
+    <style type="text/css">
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC",
+          "Hiragino Sans GB", "Heiti SC", sans-serif;
+        background: linear-gradient(135deg, #e0f7ff 0%, #f5fbff 100%);
+        color: #333;
+        padding: 20px;
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: #ffffff;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(51, 94, 187, 0.12);
+      }
+
+      .main-header {
+        background: linear-gradient(90deg, #1a56db 0%, #3d75dd 100%);
+        padding: 40px 20px;
+        color: white;
+        text-align: center;
+        position: relative;
+      }
+
+      .main-header h1 {
+        font-size: 32px;
+        margin-bottom: 15px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+      }
+
+      .main-header p {
+        font-size: 18px;
+        opacity: 0.9;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      .back-btn {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        display: inline-flex;
+        align-items: center;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        border: none;
+        background: rgba(255, 255, 255, 0.2);
+        padding: 8px 16px;
+        border-radius: 30px;
+        transition: all 0.3s ease;
+      }
+
+      .back-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: translateX(-5px);
+      }
+
+      .back-btn svg {
+        margin-right: 6px;
+      }
+
+      .content-wrapper {
+        padding: 40px;
+      }
+
+      .filter-container {
+        margin-bottom: 30px;
+        padding: 25px;
+        background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(51, 94, 187, 0.06);
+        border: 1px solid rgba(66, 153, 225, 0.15);
+      }
+
+      .filter-title {
+        font-size: 18px;
+        font-weight: 600;
+        color: #1a56db;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+      }
+
+      .filter-title svg {
+        margin-right: 8px;
+      }
+
+      .filter-form {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+
+      .filter-item {
+        flex-grow: 1;
+        min-width: 200px;
+      }
+
+      .filter-item label {
+        display: block;
+        font-size: 14px;
+        margin-bottom: 8px;
+        color: #4a5568;
+        font-weight: 500;
+      }
+
+      .filter-item select {
+        width: 100%;
+        padding: 10px 15px;
+        border: 1px solid #cbd5e0;
+        border-radius: 8px;
+        background-color: #fff;
+        color: #2d3748;
+        font-size: 15px;
+        transition: all 0.3s ease;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%233182ce' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 10px center;
+        background-size: 16px;
+      }
+
+      .filter-item select:focus {
+        outline: none;
+        border-color: #3182ce;
+        box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
+      }
+
+      .filter-button {
+        margin-top: 24px;
+      }
+
+      .filter-btn {
+        background: linear-gradient(90deg, #1a56db 0%, #3182ce 100%);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-size: 15px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        box-shadow: 0 4px 10px rgba(66, 153, 225, 0.25);
+      }
+
+      .filter-btn svg {
+        margin-right: 8px;
+      }
+
+      .filter-btn:hover {
+        background: linear-gradient(90deg, #164cbd 0%, #2c6cb0 100%);
+        box-shadow: 0 6px 14px rgba(66, 153, 225, 0.35);
+        transform: translateY(-2px);
+      }
+
+      .case-container {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+      }
+
+      .case-card {
+        display: flex;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 10px 20px rgba(51, 94, 187, 0.08);
+        background-color: #fff;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        border: 1px solid rgba(226, 232, 240, 0.8);
+      }
+
+      .case-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 30px rgba(51, 94, 187, 0.15);
+        border-color: rgba(66, 153, 225, 0.5);
+      }
+
+      .case-img {
+        width: 280px;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+      }
+
+      .case-img:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(to right, rgba(0, 0, 0, 0.4), transparent);
+      }
+
+      .case-info {
+        flex: 1;
+        padding: 25px;
+        position: relative;
+      }
+
+      .case-title {
+        font-size: 22px;
+        color: #1a56db;
+        margin-bottom: 12px;
+        font-weight: 600;
+      }
+
+      .case-tags {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 15px;
+      }
+
+      .case-tag {
+        font-size: 12px;
+        color: #3182ce;
+        background-color: #ebf8ff;
+        padding: 4px 10px;
+        border-radius: 30px;
+        margin-right: 8px;
+        margin-bottom: 8px;
+        font-weight: 500;
+        border: 1px solid rgba(66, 153, 225, 0.2);
+        transition: all 0.3s ease;
+      }
+
+      .case-tag:hover {
+        background-color: #bee3f8;
+        color: #2c5282;
+        transform: translateY(-2px);
+      }
+
+      .case-desc {
+        font-size: 15px;
+        color: #4a5568;
+        line-height: 1.7;
+        margin-bottom: 15px;
+      }
+
+      .case-result {
+        font-size: 15px;
+        color: #2f855a;
+        font-weight: 600;
+        margin-bottom: 15px;
+        background-color: #f0fff4;
+        padding: 10px 15px;
+        border-radius: 8px;
+        border-left: 4px solid #48bb78;
+      }
+
+      .case-meta {
+        display: flex;
+        justify-content: space-between;
+        color: #718096;
+        font-size: 14px;
+        padding-top: 15px;
+        border-top: 1px dashed #e2e8f0;
+      }
+
+      .doctor-info {
+        display: flex;
+        align-items: center;
+      }
+
+      .doctor-info:before {
+        content: "👨‍⚕️";
+        margin-right: 5px;
+      }
+
+      .view-more-btn {
+        display: block;
+        width: 220px;
+        margin: 30px auto;
+        padding: 12px 0;
+        background: linear-gradient(90deg, #1a56db 0%, #3182ce 100%);
+        color: white;
+        text-align: center;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: none;
+        font-size: 16px;
+        font-weight: 500;
+        box-shadow: 0 4px 10px rgba(66, 153, 225, 0.3);
+      }
+
+      .view-more-btn:hover {
+        background: linear-gradient(90deg, #164cbd 0%, #2c6cb0 100%);
+        box-shadow: 0 6px 14px rgba(66, 153, 225, 0.4);
+        transform: translateY(-2px);
+      }
+
+      .footer {
+        text-align: center;
+        padding: 30px 20px;
+        color: white;
+        background: linear-gradient(90deg, #2d3748 0%, #4a5568 100%);
+      }
+
+      .footer p {
+        margin-bottom: 10px;
+      }
+
+      .footer-links {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 15px;
+      }
+
+      .footer-links a {
+        color: rgba(255, 255, 255, 0.8);
+        margin: 0 15px;
+        text-decoration: none;
+        font-size: 14px;
+        transition: color 0.3s;
+      }
+
+      .footer-links a:hover {
+        color: white;
+      }
+
+      /* 响应式适配 */
+      @media (max-width: 768px) {
+        .case-card {
+          flex-direction: column;
+        }
+
+        .case-img {
+          width: 100%;
+          height: 200px;
+        }
+
+        .content-wrapper {
+          padding: 20px;
+        }
+
+        .filter-container {
+          padding: 20px;
+        }
+
+        .filter-item {
+          width: 100%;
+        }
+
+        .main-header {
+          padding-top: 60px;
+          padding-bottom: 30px;
+        }
+
+        .main-header h1 {
+          font-size: 26px;
+        }
+
+        .main-header p {
+          font-size: 16px;
+        }
+      }
+
+      /* 平板横屏适配 */
+      @media (min-width: 992px) and (max-width: 1366px) and (orientation: landscape) {
+        .container {
+          max-width: 95%;
+        }
+
+        .case-container {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .case-img {
+          width: 280px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="main-header">
+        <button class="back-btn" onclick="goBack()">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M15 8H1M1 8L8 15M1 8L8 1"
+              stroke="#ffffff"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          返回首页
+        </button>
+        <h1>医疗成功案例展示</h1>
+        <p>真实医疗案例与用户反馈，展示曦太医的专业医疗服务能力与成效</p>
+      </div>
+
+      <div class="content-wrapper">
+        <div class="filter-container">
+          <div class="filter-title">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M22 3H2L10 12.46V19L14 21V12.46L22 3Z"
+                stroke="#1a56db"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            案例筛选
+          </div>
+          <div class="filter-form">
+            <div class="filter-item">
+              <label>疾病类型</label>
+              <select>
+                <option value="all">全部</option>
+                <option value="cardiovascular">心血管疾病</option>
+                <option value="diabetes">糖尿病</option>
+                <option value="respiratory">呼吸系统疾病</option>
+                <option value="orthopedic">骨科疾病</option>
+              </select>
+            </div>
+
+            <div class="filter-item">
+              <label>年龄段</label>
+              <select>
+                <option value="all">全部</option>
+                <option value="youth">青少年(0-18岁)</option>
+                <option value="adult">成年(19-45岁)</option>
+                <option value="middle">中年(46-65岁)</option>
+                <option value="elder">老年(65岁以上)</option>
+              </select>
+            </div>
+
+            <div class="filter-item">
+              <label>治疗方式</label>
+              <select>
+                <option value="all">全部</option>
+                <option value="medication">药物治疗</option>
+                <option value="surgery">手术治疗</option>
+                <option value="physical">物理治疗</option>
+                <option value="integrated">综合治疗</option>
+              </select>
+            </div>
+
+            <div class="filter-item filter-button">
+              <button class="filter-btn" onclick="filterCases()">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z"
+                    stroke="white"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M21 21L16.65 16.65"
+                    stroke="white"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                应用筛选
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="case-container">
+          <div class="case-card" onclick="viewCaseDetail('case001')">
+            <div
+              class="case-img"
+              style="background-image: url('img/case1.jpg')"
+            ></div>
+            <div class="case-info">
+              <h3 class="case-title">高血压综合管理成功案例</h3>
+              <div class="case-tags">
+                <span class="case-tag">心血管疾病</span>
+                <span class="case-tag">中年</span>
+                <span class="case-tag">药物治疗</span>
+                <span class="case-tag">生活方式干预</span>
+              </div>
+              <p class="case-desc">
+                张先生，55岁，高血压病史8年，血压长期控制不佳。通过曦太医平台远程问诊，医生为其制定个性化用药方案和生活方式干预计划，并通过智能手环实时监测血压变化。
+              </p>
+              <p class="case-result">
+                治疗结果：3个月内血压趋于正常范围，降压药物剂量减少30%，无不良反应。
+              </p>
+              <div class="case-meta">
+                <span>发布日期: 2023-10-15</span>
+                <span class="doctor-info">王教授 | 心血管内科</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="case-card" onclick="viewCaseDetail('case002')">
+            <div
+              class="case-img"
+              style="background-image: url('img/case2.jpg')"
+            ></div>
+            <div class="case-info">
+              <h3 class="case-title">2型糖尿病远程管理与并发症预防</h3>
+              <div class="case-tags">
+                <span class="case-tag">糖尿病</span>
+                <span class="case-tag">中年</span>
+                <span class="case-tag">药物治疗</span>
+                <span class="case-tag">营养干预</span>
+              </div>
+              <p class="case-desc">
+                李女士，48岁，2型糖尿病确诊2年，血糖波动大，担心并发症。通过曦太医平台连接内分泌专家，制定精准用药方案，同时营养师提供个性化饮食建议，平台提供血糖监测提醒。
+              </p>
+              <p class="case-result">
+                治疗结果：糖化血红蛋白从8.2%降至6.5%，血糖达标率提高至90%以上，体重减轻5kg。
+              </p>
+              <div class="case-meta">
+                <span>发布日期: 2023-11-08</span>
+                <span class="doctor-info">陈医师 | 内分泌科</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="case-card" onclick="viewCaseDetail('case003')">
+            <div
+              class="case-img"
+              style="background-image: url('img/case3.jpg')"
+            ></div>
+            <div class="case-info">
+              <h3 class="case-title">膝关节炎康复治疗成功案例</h3>
+              <div class="case-tags">
+                <span class="case-tag">骨科疾病</span>
+                <span class="case-tag">老年</span>
+                <span class="case-tag">物理治疗</span>
+                <span class="case-tag">辅助器具</span>
+              </div>
+              <p class="case-desc">
+                刘先生，68岁，膝关节炎病史5年，行走困难，生活质量下降。通过曦太医平台联系骨科专家进行远程会诊，并通过线上视频指导进行居家康复训练，配合适当的辅助器具使用。
+              </p>
+              <p class="case-result">
+                治疗结果：6周后疼痛明显减轻，行走能力提升，日常生活活动能力显著改善。
+              </p>
+              <div class="case-meta">
+                <span>发布日期: 2023-12-05</span>
+                <span class="doctor-info">赵主任 | 骨科康复中心</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="case-card" onclick="viewCaseDetail('case004')">
+            <div
+              class="case-img"
+              style="background-image: url('img/case4.jpg')"
+            ></div>
+            <div class="case-info">
+              <h3 class="case-title">儿童哮喘远程管理与生活质量提升</h3>
+              <div class="case-tags">
+                <span class="case-tag">呼吸系统疾病</span>
+                <span class="case-tag">青少年</span>
+                <span class="case-tag">药物治疗</span>
+                <span class="case-tag">环境干预</span>
+              </div>
+              <p class="case-desc">
+                小明，10岁，哮喘病史3年，频繁发作影响学习。通过曦太医平台儿科专家定期随访，家长实时记录症状变化，医生调整用药方案，并提供环境过敏原管控建议。
+              </p>
+              <p class="case-result">
+                治疗结果：哮喘发作频率减少80%，急诊就医次数降低，学校出勤率提高，运动能力改善。
+              </p>
+              <div class="case-meta">
+                <span>发布日期: 2023-09-22</span>
+                <span class="doctor-info">林医师 | 儿科呼吸专科</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button class="view-more-btn" onclick="alert('更多案例正在整理中...')">
+          查看更多医疗案例
+        </button>
+      </div>
+
+      <div class="footer">
+        <div class="footer-links">
+          <a href="#">关于我们</a>
+          <a href="#">服务条款</a>
+          <a href="#">隐私政策</a>
+          <a href="#">联系我们</a>
+        </div>
+        <p>© 2023 曦太医 版权所有</p>
+      </div>
+    </div>
+  </body>
+</html>

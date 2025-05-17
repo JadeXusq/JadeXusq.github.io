@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>曦太医 - 肝胆排毒方案</title>
+    <script type="text/javascript">
+      document.addEventListener("plusready", function () {
+        //console.log("所有plus api都应该在此事件发生后调用，否则会出现plus is undefined。")
+      });
+
+      // 选择套餐函数
+      function selectPackage(packageType) {
+        // 将套餐类型保存到本地存储，以便在主页使用
+        localStorage.setItem("selectedPackage", packageType);
+        // 跳转到主页
+        window.location.href = "welcome.html";
+      }
+    </script>
+    <style type="text/css">
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC",
+          "Hiragino Sans GB", "Heiti SC", sans-serif;
+        background-color: #0042c5; /* 深蓝色背景，与图片一致 */
+        color: #fff;
+        padding: 0;
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 10px;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+      }
+
+      .logo img {
+        height: 40px;
+      }
+
+      .program-title {
+        text-align: center;
+        margin: 10px 0 20px 0;
+      }
+
+      .program-title h1 {
+        font-size: 28px;
+        margin-bottom: 5px;
+        position: relative;
+        display: inline-block;
+      }
+
+      .program-title h1:after {
+        content: "";
+        display: block;
+        width: 60px;
+        height: 3px;
+        background-color: #ff6b00; /* 橙色下划线，与图片一致 */
+        position: absolute;
+        right: -70px;
+        top: 50%;
+      }
+
+      .program-title h1:before {
+        content: "";
+        display: block;
+        width: 60px;
+        height: 3px;
+        background-color: #ff6b00; /* 橙色下划线，与图片一致 */
+        position: absolute;
+        left: -70px;
+        top: 50%;
+      }
+
+      .program-title h2 {
+        font-size: 16px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: normal;
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .packages-container {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+
+      .package-card {
+        width: calc(25% - 12px);
+        background-color: #fff;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .package-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      }
+
+      .package-category {
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 20px;
+        font-size: 30px;
+        color: #fff;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        font-weight: bold;
+        z-index: 1;
+      }
+
+      .package-header {
+        background: linear-gradient(90deg, #1a56db 0%, #3182ce 100%);
+        padding: 10px;
+        color: white;
+        text-align: center;
+        position: relative;
+      }
+
+      .package-price {
+        font-size: 42px;
+        font-weight: bold;
+        text-align: right;
+        padding: 15px 10px;
+        color: #0042c5;
+      }
+
+      .package-price .currency {
+        font-size: 24px;
+        vertical-align: top;
+        margin-right: 3px;
+      }
+
+      .package-price .card-value {
+        font-size: 14px;
+        display: block;
+        text-align: right;
+        color: #ff6b00;
+        margin-top: -5px;
+      }
+
+      .package-content {
+        padding: 10px;
+        color: #333;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .package-item {
+        margin-bottom: 10px;
+        position: relative;
+        padding-left: 25px;
+        font-size: 14px;
+      }
+
+      .package-item:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 6px;
+        width: 16px;
+        height: 16px;
+        background-color: #0042c5;
+        border-radius: 50%;
+      }
+
+      .package-item .item-number {
+        position: absolute;
+        left: 0;
+        top: 6px;
+        width: 16px;
+        height: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 10px;
+        font-weight: bold;
+      }
+
+      .footer {
+        margin-top: 20px;
+        padding: 10px 0;
+        text-align: center;
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .background-image {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 30%;
+        background-image: url("img/traditional-pattern.png");
+        background-position: bottom;
+        background-repeat: repeat-x;
+        background-size: contain;
+        opacity: 0.2;
+        z-index: -1;
+      }
+
+      /* 响应式适配 */
+      @media (max-width: 992px) {
+        .package-card {
+          width: calc(50% - 10px);
+          margin-bottom: 20px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .package-card {
+          width: 100%;
+          margin-bottom: 15px;
+        }
+
+        .program-title h1 {
+          font-size: 24px;
+        }
+
+        .program-title h1:after,
+        .program-title h1:before {
+          width: 40px;
+          right: -50px;
+          left: -50px;
+        }
+
+        .header {
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+        }
+      }
+
+      /* 平板横屏适配 */
+      @media (min-width: 992px) and (max-width: 1366px) and (orientation: landscape) {
+        .container {
+          max-width: 95%;
+        }
+
+        .package-card {
+          width: calc(25% - 12px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="background-image"></div>
+    <div class="container">
+      <div class="header">
+        <div class="logo">
+          <img src="img/logo.svg" alt="曦太医" />
+        </div>
+      </div>
+
+      <div class="program-title">
+        <h1>肝胆排毒方案</h1>
+        <h2>DETOXIFY THE LIVER AND GALL BLADDER</h2>
+      </div>
+
+      <div class="packages-container">
+        <!-- 入微套餐 -->
+        <div class="package-card" onclick="selectPackage('basic')">
+          <div class="package-category">入微</div>
+          <div class="package-price">
+            <span class="currency">¥</span>398
+            <span class="card-value">卡项价值</span>
+          </div>
+          <div class="package-content">
+            <div>
+              <div class="package-item">
+                <span class="item-number">01</span>
+                医生见诊1次
+              </div>
+              <div class="package-item">
+                <span class="item-number">02</span>
+                清肠净道1次
+              </div>
+              <div class="package-item">
+                <span class="item-number">03</span>
+                南少林理筋1次
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 通玄套餐 -->
+        <div class="package-card" onclick="selectPackage('standard')">
+          <div class="package-category">通玄</div>
+          <div class="package-price">
+            <span class="currency">¥</span>998
+            <span class="card-value">卡项价值</span>
+          </div>
+          <div class="package-content">
+            <div>
+              <div class="package-item">
+                <span class="item-number">01</span>
+                医生见诊1次
+              </div>
+              <div class="package-item">
+                <span class="item-number">02</span>
+                细胞仪轻体排毒3次
+              </div>
+              <div class="package-item">
+                <span class="item-number">03</span>
+                南少林理筋3次
+              </div>
+              <div class="package-item">
+                <span class="item-number">04</span>
+                砭石疗法3次
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 洞天套餐 -->
+        <div class="package-card" onclick="selectPackage('premium')">
+          <div class="package-category">洞天</div>
+          <div class="package-price">
+            <span class="currency">¥</span>2998
+            <span class="card-value">卡项价值</span>
+          </div>
+          <div class="package-content">
+            <div>
+              <div class="package-item">
+                <span class="item-number">01</span>
+                医生见诊1次
+              </div>
+              <div class="package-item">
+                <span class="item-number">02</span>
+                细胞仪寰药汗法3次
+              </div>
+              <div class="package-item">
+                <span class="item-number">03</span>
+                南少林理筋5次
+              </div>
+              <div class="package-item">
+                <span class="item-number">04</span>
+                帝王灸2次
+              </div>
+              <div class="package-item">
+                <span class="item-number">05</span>
+                清肠净道2次
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 造化套餐 -->
+        <div class="package-card" onclick="selectPackage('vip')">
+          <div class="package-category">造化</div>
+          <div class="package-price">
+            <span class="currency">¥</span>9999
+            <span class="card-value">卡项价值</span>
+          </div>
+          <div class="package-content">
+            <div>
+              <div class="package-item">
+                <span class="item-number">01</span>
+                中医专家见诊4次
+              </div>
+              <div class="package-item">
+                <span class="item-number">02</span>
+                清肠净道4次
+              </div>
+              <div class="package-item">
+                <span class="item-number">03</span>
+                南少林理筋4次
+              </div>
+              <div class="package-item">
+                <span class="item-number">04</span>
+                肝胆修复护肝针4次
+              </div>
+              <div class="package-item">
+                <span class="item-number">05</span>
+                细胞仪寰药汗法4次
+              </div>
+              <div class="package-item">
+                <span class="item-number">06</span>
+                帝王青/女王青1瓶
+              </div>
+              <div class="package-item">
+                <span class="item-number">07</span>
+                肝胆净化1次
+              </div>
+              <div class="package-item">
+                <span class="item-number">08</span>
+                宫廷宴（限6人）
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <p>© 2023 曦太医 版权所有</p>
+      </div>
+    </div>
+  </body>
+</html>
